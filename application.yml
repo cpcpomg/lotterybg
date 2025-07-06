@@ -1,0 +1,75 @@
+server:
+  port: 10320
+  cache:
+    type: redis
+#静态资源路径
+static:
+  file: "file:/usr/lotterybg/upload/"
+spring:
+  #设置单个文件的大小，默认1MB
+  servlet:
+    multipart:
+      #单个文件大小
+      max-file-size: 20MB
+      #一次请求总大小
+      max-request-size: 50MB
+  thymeleaf:
+    mode: LEGACYHTML5
+    prefix: classpath:/templates/
+  datasource:
+    druid:
+      url: "jdbc:mysql://127.0.0.1:3306/lobg?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8"
+      username: "lobg"
+      password: "YWYZBZpcX8mRdNXs"
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      #连接池配置
+      min-idle: 1
+      initial-size: 20
+      max-active: 2000
+      # 配置获取连接等待超时的时间
+      max-wait: 30000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 20000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 30000
+      remove-abandoned: true
+      remove-abandoned-timeout: 120
+      log-abandoned: true
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      #sql查询超时时间
+      query-timeout: 160
+      #监控
+      filter:
+        wall:
+          enabled: true
+          config:
+            multi-statement-allow: true
+#          keep-alive: true
+      max-pool-prepared-statement-per-connection-size: 50
+  redis:
+    database: 7
+    #TODO 配置redis
+    host: 127.0.0.1
+#    host: 192.168.101.66
+#    password: 123123
+    port: 6379
+    timeout: 3000ms
+  #
+logging:
+  level:
+    root: info
+    org.apache.http.client.protocol: error
+some-comfig:
+  #服务器名,随意写,每台不一样,负载里面测试是否都有请求到
+  server-name: s1
+  #是否为主服,加了才是主,不加默认非主
+  main-server: 1
+  #开启在线API
+  api-bookmaker: 1
+  #测试模式，不拉赛事，不需要验证码
+  #api-switch: 1
+  #小数位数
+  accuracy: 2
